@@ -1,0 +1,15 @@
+source("prepareData.R")
+data<-getData()
+
+png(filename = "plot4.png", width = 480, height = 480)
+par(mfrow=c(2,2))
+plot(as.POSIXct(data$timestamp), as.numeric(data$Global_active_power),  type = "l", ylab="Global Active Power (kilowatts)", xlab = "")
+plot(as.POSIXct(data$timestamp), as.numeric(data$Voltage),  type = "l", ylab="Voltage", xlab = "")
+plot(as.POSIXct(data$timestamp), as.numeric(data$Sub_metering_1),  type = "l", ylab="Energy sub metering", xlab = "")
+lines(as.POSIXct(data$timestamp),data$Sub_metering_2, col="red")
+lines(as.POSIXct(data$timestamp),data$Sub_metering_3, col="blue")
+#legend("topright", c("Sub_metering_1","Sub_metering_2","Sub_metering_3"), col=c("black", "red", "blue"))
+legend("topright", col=c("black", "red", "blue"), lwd=1, bty = "n",
+       legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+plot(as.POSIXct(data$timestamp), as.numeric(data$Global_reactive_power),  type = "l", ylab="Global_reactive_power", xlab = "datetime")
+dev.off() 
